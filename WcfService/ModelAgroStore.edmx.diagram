@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8a0d993506934de1b9f8d7eb83ccb482" Name="Diagram1">
+        <EntityTypeShape EntityType="AgroStoreModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="AgroStoreModel.tblCarrier" Width="1.5" PointX="0.75" PointY="8.5" />
+        <EntityTypeShape EntityType="AgroStoreModel.tblCategory" Width="1.5" PointX="0.75" PointY="12.125" />
+        <EntityTypeShape EntityType="AgroStoreModel.tblCustomer" Width="1.5" PointX="0.75" PointY="5.625" />
+        <EntityTypeShape EntityType="AgroStoreModel.tblOrder" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="AgroStoreModel.tblOrderDetails" Width="1.5" PointX="5.25" PointY="1.375" />
+        <EntityTypeShape EntityType="AgroStoreModel.tblPayment" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="AgroStoreModel.tblProduct" Width="1.5" PointX="3" PointY="13.375" />
+        <EntityTypeShape EntityType="AgroStoreModel.tblSupplier" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="AgroStoreModel.vwCarrier" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="AgroStoreModel.vwCategory" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AgroStoreModel.vwCustomer" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="AgroStoreModel.vwOrder" Width="1.5" PointX="7.75" PointY="6.75" />
+        <EntityTypeShape EntityType="AgroStoreModel.vwOrderDetails" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="AgroStoreModel.vwPayment" Width="1.5" PointX="4.75" PointY="8.75" />
+        <EntityTypeShape EntityType="AgroStoreModel.vwProduct" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AgroStoreModel.vwSupplier" Width="1.5" PointX="9.75" PointY="4.75" />
+        <AssociationConnector Association="AgroStoreModel.FK_tblOrder_tblCarrier" />
+        <AssociationConnector Association="AgroStoreModel.FK_tblProduct_tblCategory" />
+        <AssociationConnector Association="AgroStoreModel.FK_tblOrder_tblCustomer" />
+        <AssociationConnector Association="AgroStoreModel.FK_tblOrder_tblPayment" />
+        <AssociationConnector Association="AgroStoreModel.FK_tblOrderDetails_tblOrder" />
+        <AssociationConnector Association="AgroStoreModel.FK_tblOrderDetails_tblProduct" />
+        <AssociationConnector Association="AgroStoreModel.FK_tblProduct_tblSupplier" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

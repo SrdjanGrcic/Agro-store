@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AgroStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="AgroStoreEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="AgroStoreModel.sysdiagrams" />
+    <EntitySet Name="tblCarrier" EntityType="AgroStoreModel.tblCarrier" />
+    <EntitySet Name="tblCategory" EntityType="AgroStoreModel.tblCategory" />
+    <EntitySet Name="tblCustomer" EntityType="AgroStoreModel.tblCustomer" />
+    <EntitySet Name="tblOrder" EntityType="AgroStoreModel.tblOrder" />
+    <EntitySet Name="tblOrderDetails" EntityType="AgroStoreModel.tblOrderDetails" />
+    <EntitySet Name="tblPayment" EntityType="AgroStoreModel.tblPayment" />
+    <EntitySet Name="tblProduct" EntityType="AgroStoreModel.tblProduct" />
+    <EntitySet Name="tblSupplier" EntityType="AgroStoreModel.tblSupplier" />
+    <EntitySet Name="vwCarrier" EntityType="AgroStoreModel.vwCarrier" />
+    <EntitySet Name="vwCategory" EntityType="AgroStoreModel.vwCategory" />
+    <EntitySet Name="vwCustomer" EntityType="AgroStoreModel.vwCustomer" />
+    <EntitySet Name="vwOrder" EntityType="AgroStoreModel.vwOrder" />
+    <EntitySet Name="vwOrderDetails" EntityType="AgroStoreModel.vwOrderDetails" />
+    <EntitySet Name="vwPayment" EntityType="AgroStoreModel.vwPayment" />
+    <EntitySet Name="vwProduct" EntityType="AgroStoreModel.vwProduct" />
+    <EntitySet Name="vwSupplier" EntityType="AgroStoreModel.vwSupplier" />
+    <AssociationSet Name="FK_tblOrder_tblCarrier" Association="AgroStoreModel.FK_tblOrder_tblCarrier">
+      <End Role="tblCarrier" EntitySet="tblCarrier" />
+      <End Role="tblOrder" EntitySet="tblOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProduct_tblCategory" Association="AgroStoreModel.FK_tblProduct_tblCategory">
+      <End Role="tblCategory" EntitySet="tblCategory" />
+      <End Role="tblProduct" EntitySet="tblProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblOrder_tblCustomer" Association="AgroStoreModel.FK_tblOrder_tblCustomer">
+      <End Role="tblCustomer" EntitySet="tblCustomer" />
+      <End Role="tblOrder" EntitySet="tblOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblOrder_tblPayment" Association="AgroStoreModel.FK_tblOrder_tblPayment">
+      <End Role="tblPayment" EntitySet="tblPayment" />
+      <End Role="tblOrder" EntitySet="tblOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblOrderDetails_tblOrder" Association="AgroStoreModel.FK_tblOrderDetails_tblOrder">
+      <End Role="tblOrder" EntitySet="tblOrder" />
+      <End Role="tblOrderDetails" EntitySet="tblOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblOrderDetails_tblProduct" Association="AgroStoreModel.FK_tblOrderDetails_tblProduct">
+      <End Role="tblProduct" EntitySet="tblProduct" />
+      <End Role="tblOrderDetails" EntitySet="tblOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProduct_tblSupplier" Association="AgroStoreModel.FK_tblProduct_tblSupplier">
+      <End Role="tblSupplier" EntitySet="tblSupplier" />
+      <End Role="tblProduct" EntitySet="tblProduct" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblCarrier">
+    <Key>
+      <PropertyRef Name="CarrierID" />
+    </Key>
+    <Property Name="CarrierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarrierName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblOrder" Relationship="AgroStoreModel.FK_tblOrder_tblCarrier" FromRole="tblCarrier" ToRole="tblOrder" />
+  </EntityType>
+  <EntityType Name="tblCategory">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblProduct" Relationship="AgroStoreModel.FK_tblProduct_tblCategory" FromRole="tblCategory" ToRole="tblProduct" />
+  </EntityType>
+  <EntityType Name="tblCustomer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblOrder" Relationship="AgroStoreModel.FK_tblOrder_tblCustomer" FromRole="tblCustomer" ToRole="tblOrder" />
+  </EntityType>
+  <EntityType Name="tblOrder">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" Nullable="false" />
+    <Property Name="PaymentID" Type="Int32" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ShipDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Paid" Type="Boolean" Nullable="false" />
+    <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CarrierID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblCarrier" Relationship="AgroStoreModel.FK_tblOrder_tblCarrier" FromRole="tblOrder" ToRole="tblCarrier" />
+    <NavigationProperty Name="tblCustomer" Relationship="AgroStoreModel.FK_tblOrder_tblCustomer" FromRole="tblOrder" ToRole="tblCustomer" />
+    <NavigationProperty Name="tblPayment" Relationship="AgroStoreModel.FK_tblOrder_tblPayment" FromRole="tblOrder" ToRole="tblPayment" />
+    <NavigationProperty Name="tblOrderDetails" Relationship="AgroStoreModel.FK_tblOrderDetails_tblOrder" FromRole="tblOrder" ToRole="tblOrderDetails" />
+  </EntityType>
+  <EntityType Name="tblOrderDetails">
+    <Key>
+      <PropertyRef Name="OrderDetailsID" />
+    </Key>
+    <Property Name="OrderDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Discount" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="tblOrder" Relationship="AgroStoreModel.FK_tblOrderDetails_tblOrder" FromRole="tblOrderDetails" ToRole="tblOrder" />
+    <NavigationProperty Name="tblProduct" Relationship="AgroStoreModel.FK_tblOrderDetails_tblProduct" FromRole="tblOrderDetails" ToRole="tblProduct" />
+  </EntityType>
+  <EntityType Name="tblPayment">
+    <Key>
+      <PropertyRef Name="PaymentID" />
+    </Key>
+    <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblOrder" Relationship="AgroStoreModel.FK_tblOrder_tblPayment" FromRole="tblPayment" ToRole="tblOrder" />
+  </EntityType>
+  <EntityType Name="tblProduct">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupplierID" Type="Int32" Nullable="false" />
+    <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblCategory" Relationship="AgroStoreModel.FK_tblProduct_tblCategory" FromRole="tblProduct" ToRole="tblCategory" />
+    <NavigationProperty Name="tblOrderDetails" Relationship="AgroStoreModel.FK_tblOrderDetails_tblProduct" FromRole="tblProduct" ToRole="tblOrderDetails" />
+    <NavigationProperty Name="tblSupplier" Relationship="AgroStoreModel.FK_tblProduct_tblSupplier" FromRole="tblProduct" ToRole="tblSupplier" />
+  </EntityType>
+  <EntityType Name="tblSupplier">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblProduct" Relationship="AgroStoreModel.FK_tblProduct_tblSupplier" FromRole="tblSupplier" ToRole="tblProduct" />
+  </EntityType>
+  <EntityType Name="vwCarrier">
+    <Key>
+      <PropertyRef Name="CarrierID" />
+      <PropertyRef Name="CarrierName" />
+      <PropertyRef Name="Address" />
+      <PropertyRef Name="City" />
+    </Key>
+    <Property Name="CarrierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarrierName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vwCategory">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+      <PropertyRef Name="CategoryName" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vwCustomer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+      <PropertyRef Name="CustomerName" />
+      <PropertyRef Name="Address" />
+      <PropertyRef Name="City" />
+    </Key>
+    <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vwOrder">
+    <Key>
+      <PropertyRef Name="OrderID" />
+      <PropertyRef Name="CustomerID" />
+      <PropertyRef Name="PaymentID" />
+      <PropertyRef Name="OrderDate" />
+      <PropertyRef Name="ShipDate" />
+      <PropertyRef Name="Paid" />
+      <PropertyRef Name="PaidDate" />
+      <PropertyRef Name="CarrierID" />
+      <PropertyRef Name="Expr1" />
+      <PropertyRef Name="Expr2" />
+      <PropertyRef Name="Expr3" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="CustomerID" Type="Int32" Nullable="false" />
+    <Property Name="PaymentID" Type="Int32" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ShipDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Paid" Type="Boolean" Nullable="false" />
+    <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CarrierID" Type="Int32" Nullable="false" />
+    <Property Name="Expr1" Type="Int32" Nullable="false" />
+    <Property Name="Expr2" Type="Int32" Nullable="false" />
+    <Property Name="Expr3" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vwOrderDetails">
+    <Key>
+      <PropertyRef Name="Expr1" />
+      <PropertyRef Name="OrderDetailsID" />
+      <PropertyRef Name="OrderID" />
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="Quantity" />
+      <PropertyRef Name="TotalAmount" />
+      <PropertyRef Name="Expr2" />
+    </Key>
+    <Property Name="Expr1" Type="Int32" Nullable="false" />
+    <Property Name="OrderDetailsID" Type="Int32" Nullable="false" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Discount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Expr2" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vwPayment">
+    <Key>
+      <PropertyRef Name="PaymentID" />
+    </Key>
+    <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vwProduct">
+    <Key>
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="SupplierID" />
+      <PropertyRef Name="ProductName" />
+      <PropertyRef Name="Price" />
+      <PropertyRef Name="CategoryID" />
+      <PropertyRef Name="Expr1" />
+      <PropertyRef Name="Expr2" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="SupplierID" Type="Int32" Nullable="false" />
+    <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="Expr1" Type="Int32" Nullable="false" />
+    <Property Name="Expr2" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vwSupplier">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_tblOrder_tblCarrier">
+    <End Type="AgroStoreModel.tblCarrier" Role="tblCarrier" Multiplicity="1" />
+    <End Type="AgroStoreModel.tblOrder" Role="tblOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCarrier">
+        <PropertyRef Name="CarrierID" />
+      </Principal>
+      <Dependent Role="tblOrder">
+        <PropertyRef Name="CarrierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProduct_tblCategory">
+    <End Type="AgroStoreModel.tblCategory" Role="tblCategory" Multiplicity="1" />
+    <End Type="AgroStoreModel.tblProduct" Role="tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCategory">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblOrder_tblCustomer">
+    <End Type="AgroStoreModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+    <End Type="AgroStoreModel.tblOrder" Role="tblOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCustomer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="tblOrder">
+        <PropertyRef Name="CarrierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblOrder_tblPayment">
+    <End Type="AgroStoreModel.tblPayment" Role="tblPayment" Multiplicity="1" />
+    <End Type="AgroStoreModel.tblOrder" Role="tblOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPayment">
+        <PropertyRef Name="PaymentID" />
+      </Principal>
+      <Dependent Role="tblOrder">
+        <PropertyRef Name="PaymentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblOrderDetails_tblOrder">
+    <End Type="AgroStoreModel.tblOrder" Role="tblOrder" Multiplicity="1" />
+    <End Type="AgroStoreModel.tblOrderDetails" Role="tblOrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblOrder">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="tblOrderDetails">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblOrderDetails_tblProduct">
+    <End Type="AgroStoreModel.tblProduct" Role="tblProduct" Multiplicity="1" />
+    <End Type="AgroStoreModel.tblOrderDetails" Role="tblOrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProduct">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="tblOrderDetails">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProduct_tblSupplier">
+    <End Type="AgroStoreModel.tblSupplier" Role="tblSupplier" Multiplicity="1" />
+    <End Type="AgroStoreModel.tblProduct" Role="tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSupplier">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
