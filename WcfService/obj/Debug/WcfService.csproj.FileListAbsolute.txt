@@ -8,3 +8,13 @@ C:\Users\Srdjan\Desktop\SrdjanGrcic_AgroStore\Application_AgroStore\SrdjanGrcic_
 C:\Users\Srdjan\Desktop\SrdjanGrcic_AgroStore\Application_AgroStore\SrdjanGrcic_AgroStoreApp\WcfService\obj\Debug\WcfService.csprojResolveAssemblyReference.cache
 C:\Users\Srdjan\Desktop\SrdjanGrcic_AgroStore\Application_AgroStore\SrdjanGrcic_AgroStoreApp\WcfService\obj\Debug\WcfService.dll
 C:\Users\Srdjan\Desktop\SrdjanGrcic_AgroStore\Application_AgroStore\SrdjanGrcic_AgroStoreApp\WcfService\obj\Debug\WcfService.pdb
+D:\VS_Projects\Agro-store\WcfService\bin\WcfService.dll.config
+D:\VS_Projects\Agro-store\WcfService\bin\WcfService.dll
+D:\VS_Projects\Agro-store\WcfService\bin\WcfService.pdb
+D:\VS_Projects\Agro-store\WcfService\bin\EntityFramework.dll
+D:\VS_Projects\Agro-store\WcfService\bin\EntityFramework.SqlServer.dll
+D:\VS_Projects\Agro-store\WcfService\bin\EntityFramework.xml
+D:\VS_Projects\Agro-store\WcfService\bin\EntityFramework.SqlServer.xml
+D:\VS_Projects\Agro-store\WcfService\obj\Debug\WcfService.csprojResolveAssemblyReference.cache
+D:\VS_Projects\Agro-store\WcfService\obj\Debug\WcfService.dll
+D:\VS_Projects\Agro-store\WcfService\obj\Debug\WcfService.pdb

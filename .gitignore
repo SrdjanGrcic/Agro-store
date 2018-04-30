@@ -1,0 +1,6 @@
+WcfService/obj/Debug/*
+WpfAgroStoreApp/bin/
+WpfAgroStoreApp/obj/
+.vs/
+WcfService/bin/*
+WcfService/obj/*

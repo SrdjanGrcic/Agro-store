@@ -79,6 +79,9 @@
     <Compile Include="Views\Customer_View.xaml.cs">
       <DependentUpon>Customer_View.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InitialView.xaml.cs">
+      <DependentUpon>InitialView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OrderDetails_View.xaml.cs">
       <DependentUpon>OrderDetails_View.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InitialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
