@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Carrier" Height="500" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <DataGrid Name="Carriers_list" IsReadOnly="True" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Height="141" Width="530" ItemsSource="{Binding Carriers}" SelectedItem="{Binding Carrier, UpdateSourceTrigger=PropertyChanged}"/>
+        <DataGrid Name="Carriers_list" IsReadOnly="True" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Height="141" Width="530" 
+                  ItemsSource="{Binding Carriers, UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding Carrier, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Content="Name" HorizontalAlignment="Left" Margin="28,233,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="106,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Carrier.CarrierName, UpdateSourceTrigger=PropertyChanged}"/>

@@ -1,58 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using WcfService;
 using WpfAgroStoreApp.Command;
-using WpfAgroStoreApp.ServiceReference1;
+using WpfAgroStoreApp.Model;
+using WpfAgroStoreApp.Services.CarrierService;
 
 namespace WpfAgroStoreApp.ViewModel
 {
     class Carrier_ViewModel : ViewModelBase
     {
-        List<vwCarrier> carrierList = new List<vwCarrier>();
-        vwCarrier carrier = new vwCarrier();
+        #region Private Fields
+
+        private List<Carrier> _carrierList;
+        private Carrier _carrier;
+
+        private CarrierService _carrierService;
+
+        #endregion
+
+        #region Public Constructors
 
         public Carrier_ViewModel()
         {
-            Refresh();
+            _carrierList = new List<Carrier>();
+            _carrier = new Carrier();
+            _carrierService = new CarrierService();
+
+            LoadAllCarriers();
         }
 
-        private void Refresh()
-        {
-            try
-            {
-                using (Service1Client wcf = new Service1Client())
-                {
-                    carrierList = wcf.GetAllCarriers().ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            carrier = carrier ?? new vwCarrier();
-        }
+        #endregion
 
-        public List<vwCarrier> Carriers
-        {
-            get { return carrierList; }
-        }
+        #region  Public Properties
 
-        public vwCarrier Carrier
+        public List<Carrier> Carriers
         {
-            get { return carrier; }
+            get { return _carrierList; }
             set
             {
-                carrier = value;
-                OnPropertyChanged("Carrier");
+                _carrierList = value;
+                OnPropertyChanged(nameof(Carriers));
             }
         }
 
-        #region IComandButtons
+        public Carrier Carrier
+        {
+            get { return _carrier; }
+            set
+            {
+                _carrier = value;
+                OnPropertyChanged(nameof(Carrier));
+            }
+        }
+
+        #endregion
+
+        #region Public ComandButtons
 
         public ICommand Show
         {
@@ -62,86 +65,40 @@ namespace WpfAgroStoreApp.ViewModel
             }
         }
 
+        #endregion
+
+        #region Private Methods
+
         private void Execute(object param)
         {
             if (param.ToString().Equals("btn_Add_Carrier"))
             {
-                try
-                {
-                    using (Service1Client wcf = new Service1Client())
-                    {
-                        wcf.AddCarrier(carrier);
-                        Refresh();
-                        OnPropertyChanged("Carriers");
-                        MessageBox.Show("Dodat je prevoznik.");
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Error");
-                }
+                _carrierService.StoreCarrier(Carrier);
             }
 
             if (param.ToString().Equals("btn_UpDateCarrier"))
             {
-                try
-                {
-                    using (Service1Client wcf = new Service1Client())
-                    {
-                        MessageBoxResult msgRes = MessageBox.Show("Da li zelite da izmenite prevoznika: " + carrier.CarrierName.ToString(), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                        if (msgRes == MessageBoxResult.Yes)
-                        {
-                            wcf.AddCarrier(carrier);
-                            MessageBox.Show("Izmenjen je prevoznik: " + carrier.CarrierName.ToString());
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Error");
-                }
+                _carrierService.EditCarrier(Carrier);
             }
 
             else if (param.ToString().Equals("btn_DeleteCarrier"))
             {
-                try
-                {
-                    using (Service1Client wcf = new Service1Client())
-                    {
-                        int carID = (int)carrier.CarrierID;
-                        bool isCarrierExist = wcf.IsCarrierExist(carID);
-                        if (isCarrierExist)
-                        {
-                            MessageBoxResult msgRes = MessageBox.Show("Da li zelite da obrisete prevoznika: " + carrier.CarrierName.ToString(), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                            if (msgRes == MessageBoxResult.Yes)
-                            {
-                                vwCarrier CarrierForDeletion = carrier;
-                                wcf.DeleteCarrier(carID);
-                                Refresh();
-                                OnPropertyChanged("Carriers");
-                                MessageBox.Show("Obrisan je prevoznik: " + CarrierForDeletion.CarrierName.ToString());
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Izaberite prevoznika za brisanje.");
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Brisanje nije uspelo.");
-                }
+                _carrierService.DeleteCarrier(Carrier);
             }
+        }
+
+        private void LoadAllCarriers()
+        {
+            Carriers = _carrierService.LoadCarriers();
         }
 
         private bool CanExecute(object param)
         {
             if (param.ToString().Equals("btn_Add_Carrier"))
             {
-                if (carrier != null)
+                if (_carrier != null)
                 {
-                    if (String.IsNullOrEmpty(carrier.CarrierName) || String.IsNullOrEmpty(carrier.Address) || String.IsNullOrEmpty(carrier.Phone))
+                    if (String.IsNullOrEmpty(_carrier.CarrierName) || String.IsNullOrEmpty(_carrier.Address) || String.IsNullOrEmpty(_carrier.Phone))
                     {
                         return false;
                     }
@@ -149,11 +106,9 @@ namespace WpfAgroStoreApp.ViewModel
             }
             if (param.ToString().Equals("btn_DeleteCurrier"))
             {
-                //if (String.IsNullOrEmpty(carrier.CarrierName))
-                //{
-                //    return false;
-                //}
+                return Carrier != null ? true : false;
             }
+
             return true;
         }
 

@@ -9,9 +9,6 @@
 
 namespace WcfService
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class vwCategory
     {
         public int CategoryID { get; set; }

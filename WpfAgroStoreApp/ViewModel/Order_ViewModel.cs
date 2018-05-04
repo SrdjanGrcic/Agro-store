@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WcfService;
@@ -111,73 +109,88 @@ namespace WpfAgroStoreApp.ViewModel
         {
             if (param.ToString().Equals("btn_Proceed_Order"))
             {
-                try
-                {
-                    using (Service1Client wcf = new Service1Client())
-                    {
-                        order.CustomerID = Customer.CustomerID;
-                        order.CarrierID = Carrier.CarrierID;
-                        order.PaymentID = Payment.PaymentID;
-
-                        vwOrder newOrder = wcf.AddOrder(order);
-                        OrderDetails_View orderDetailsView = new OrderDetails_View(newOrder);
-                        orderDetailsView.ShowDialog();
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Error");
-                }
+                AddOrder();
             }
 
             if (param.ToString().Equals("btn_UpDateOrder"))
             {
-                try
-                {
-                    using (Service1Client wcf = new Service1Client())
-                    {
-                        MessageBoxResult msgRes = MessageBox.Show("Da li zelite da izmenite narudzbinu broj: " + order.OrderID.ToString(), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                        if (msgRes == MessageBoxResult.Yes)
-                        {
-                            wcf.AddOrder(order);
-                            MessageBox.Show("Izmenjena je narudzbina: " + order.OrderID.ToString());
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Error");
-                }
+                EditOrder();
             }
 
             else if (param.ToString().Equals("btn_DeleteOrder"))
             {
-                try
-                {
-                    using (Service1Client wcf = new Service1Client())
-                    {
-                        int ordID = (int)order.OrderID;
-                        bool isOrderExist = wcf.IsOrderExist(ordID);
+                DeleteOrder();
+            }
+        }
 
-                        if (isOrderExist)
+        private void DeleteOrder()
+        {
+            try
+            {
+                using (Service1Client wcf = new Service1Client())
+                {
+                    int ordID = (int)order.OrderID;
+                    bool isOrderExist = wcf.IsOrderExist(ordID);
+
+                    if (isOrderExist)
+                    {
+                        MessageBoxResult msgRes = MessageBox.Show("Da li zelite da obrisete narudzbinu: " + order.OrderID.ToString(), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                        if (msgRes == MessageBoxResult.Yes)
                         {
-                            MessageBoxResult msgRes = MessageBox.Show("Da li zelite da obrisete narudzbinu: " + order.OrderID.ToString(), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                            if (msgRes == MessageBoxResult.Yes)
-                            {
-                                wcf.DeleteOrder(ordID);
-                                MessageBox.Show("Obrisana je naruzbina: " + order.OrderID.ToString());
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Izaberite narudzbinu za brisanje.");
+                            wcf.DeleteOrder(ordID);
+                            MessageBox.Show("Obrisana je naruzbina: " + order.OrderID.ToString());
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("Izaberite narudzbinu za brisanje.");
+                    }
                 }
-                catch (Exception)
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Izaberite narudzbinu za brisanje.");
+            }
+        }
+
+        private void EditOrder()
+        {
+            try
+            {
+                using (Service1Client wcf = new Service1Client())
                 {
-                    MessageBox.Show("Izaberite narudzbinu za brisanje.");
+                    MessageBoxResult msgRes = MessageBox.Show("Da li zelite da izmenite narudzbinu broj: " + order.OrderID.ToString(), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (msgRes == MessageBoxResult.Yes)
+                    {
+                        wcf.AddOrder(order);
+                        MessageBox.Show("Izmenjena je narudzbina: " + order.OrderID.ToString());
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error");
+            }
+        }
+
+        private void AddOrder()
+        {
+            try
+            {
+                using (Service1Client wcf = new Service1Client())
+                {
+                    order.CustomerID = Customer.CustomerID;
+                    order.CarrierID = Carrier.CarrierID;
+                    order.PaymentID = Payment.PaymentID;
+
+                    vwOrder newOrder = wcf.AddOrder(order);
+                    OrderDetails_View orderDetailsView = new OrderDetails_View(newOrder);
+                    orderDetailsView.ShowDialog();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error");
             }
         }
 

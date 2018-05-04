@@ -1,44 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using WcfService;
 using WpfAgroStoreApp.Command;
-using WpfAgroStoreApp.ServiceReference1;
-
+using WpfAgroStoreApp.Model;
+using WpfAgroStoreApp.Services.CategoryService;
 
 namespace WpfAgroStoreApp.ViewModel
 {
     class Category_ViewModel : ViewModelBase
     {
-        List<vwCategory> categoryList = new List<vwCategory>();
-        vwCategory category = new vwCategory();
+        #region Private Fields
+
+        private List<Category> _categoryList;
+        private Category _category;
+
+        private CategoryService _categoryService;
+
+        #endregion
+
+        #region Public Constructor
 
         public Category_ViewModel()
         {
-            using (Service1Client wcf = new Service1Client())
-            {
-                categoryList = wcf.GetAllCategories().ToList();
-            }
+            _categoryList = new List<Category>();
+            _category = new Category();
+            _categoryService = new CategoryService();
+
+            Categories = _categoryService.LoadCategory();
         }
 
-        public List<vwCategory> Categories
-        {
-            get { return categoryList; }
-        }
+        #endregion
 
-        public vwCategory Category
+        #region Public Properties
+
+        public List<Category> Categories
         {
-            get { return category; }
+            get { return _categoryList; }
             set
             {
-                category = value;
-                OnPropertyChanged("Category");
+                _categoryList = value;
+                OnPropertyChanged(nameof(Categories));
             }
         }
+
+        public Category Category
+        {
+            get { return _category; }
+            set
+            {
+                _category = value;
+                OnPropertyChanged(nameof(Category));
+            }
+        }
+
+        #endregion
 
         #region IComandButtons
 
@@ -54,69 +69,17 @@ namespace WpfAgroStoreApp.ViewModel
         {
             if (param.ToString().Equals("btn_Add_Category"))
             {
-                try
-                {
-                    using (Service1Client wcf = new Service1Client())
-                    {
-                        wcf.AddCategory(category);
-                        //IsUpdateSupplier = true;
-                        MessageBox.Show("Dodata je kategorija.");
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Error");
-                }
+                _categoryService.StoreCategory(Category);
             }
 
             if (param.ToString().Equals("btn_UpDateCategory"))
             {
-                try
-                {
-                    using (Service1Client wcf = new Service1Client())
-                    {
-                        MessageBoxResult msgRes = MessageBox.Show("Da li zelite da izmenite dobavljaca: " + category.CategoryName.ToString(), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                        if (msgRes == MessageBoxResult.Yes)
-                        {
-                            wcf.AddCategory(category);
-                            MessageBox.Show("Izmenjen je dobavljac: " + category.CategoryName.ToString());
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Error");
-                }
+                _categoryService.EditCategory(Category);
             }
 
             else if (param.ToString().Equals("btn_DeleteCategory"))
             {
-                try
-                {
-                    using (Service1Client wcf = new Service1Client())
-                    {
-                        int catID = (int)category.CategoryID;
-                        bool isCategoryExist = wcf.IsCategoryExist(catID);
-
-                        if (isCategoryExist)
-                        {
-                            MessageBoxResult msgRes = MessageBox.Show("Da li zelite da obrisete dobavljaca: " + category.CategoryName.ToString(), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                            if (msgRes == MessageBoxResult.Yes && isCategoryExist)
-                            {
-                                wcf.DeleteCategory(catID);
-                                MessageBox.Show("Obrisan je dobavljac: " + category.CategoryName.ToString());
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Izaberite kategoriju za brisanje.");
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Izaberite kategoriju za brisanje.");
-                }
+                _categoryService.DeleteCategory(Category);
             }
         }
 
@@ -124,7 +87,7 @@ namespace WpfAgroStoreApp.ViewModel
         {
             if (param.ToString().Equals("btn_Add_Customer"))
             {
-                if (String.IsNullOrEmpty(category.CategoryName))
+                if (String.IsNullOrEmpty(_category.CategoryName))
                 {
                     return false;
                 }
@@ -133,6 +96,5 @@ namespace WpfAgroStoreApp.ViewModel
         }
 
         #endregion
-
     }
 }
