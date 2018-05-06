@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using WcfService;
+﻿using System.Windows.Input;
 using WpfAgroStoreApp.Command;
 using WpfAgroStoreApp.Views;
 
@@ -12,10 +6,6 @@ namespace WpfAgroStoreApp.ViewModel
 {
     class ViewModel_MainWindow : ViewModelBase
     {
-        //MainWindow mainWin;
-
-        List<tblSupplier> SupplierList = new List<tblSupplier>();
-        
         public ICommand Show
         {
             get
@@ -70,10 +60,6 @@ namespace WpfAgroStoreApp.ViewModel
 
         private bool CanExecute(object param)
         {
-            //if (param.ToString().Equals("btn_EditStudent"))
-            //{
-            //    return true;
-            //}
             return true;
         }
     }

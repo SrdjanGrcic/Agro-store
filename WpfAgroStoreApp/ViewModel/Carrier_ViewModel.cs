@@ -65,10 +65,6 @@ namespace WpfAgroStoreApp.ViewModel
             }
         }
 
-        #endregion
-
-        #region Private Methods
-
         private void Execute(object param)
         {
             if (param.ToString().Equals("btn_Add_Carrier"))
@@ -85,11 +81,6 @@ namespace WpfAgroStoreApp.ViewModel
             {
                 _carrierService.DeleteCarrier(Carrier);
             }
-        }
-
-        private void LoadAllCarriers()
-        {
-            Carriers = _carrierService.LoadCarriers();
         }
 
         private bool CanExecute(object param)
@@ -110,6 +101,15 @@ namespace WpfAgroStoreApp.ViewModel
             }
 
             return true;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void LoadAllCarriers()
+        {
+            Carriers = _carrierService.LoadCarriers();
         }
 
         #endregion

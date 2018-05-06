@@ -5,7 +5,11 @@ using System.Windows;
 using System.Windows.Input;
 using WcfService;
 using WpfAgroStoreApp.Command;
+using WpfAgroStoreApp.Model;
 using WpfAgroStoreApp.ServiceReference1;
+using WpfAgroStoreApp.Services.CarrierService;
+using WpfAgroStoreApp.Services.CustomerService;
+using WpfAgroStoreApp.Services.OrderService;
 using WpfAgroStoreApp.Views;
 
 
@@ -13,84 +17,104 @@ namespace WpfAgroStoreApp.ViewModel
 {
     class Order_ViewModel : ViewModelBase
     {
-        vwOrder order = new vwOrder();
-        List<vwOrder> orderList = new List<vwOrder>();
-        private List<vwCustomer> customerList = new List<vwCustomer>();
-        private List<vwCarrier> carrierList = new List<vwCarrier>();
-        private List<vwPayment> paymentList = new List<vwPayment>();
+        #region Private Fields
+
+        private Order order = new Order();
+
+        private List<Order> _orderList = new List<Order>();
+        private List<Customer> _customerList = new List<Customer>();
+        private List<Carrier> _carrierList = new List<Carrier>();
+        private List<Payment> _paymentList = new List<Payment>();
+
+        private CarrierService _carrierService;
+        private OrderService _orderService;
+        private CustomerService _customerService;
+        //private PaymentService _paymentService;
+
+        #endregion
+
+        #region Public Constructor
 
         public Order_ViewModel()
         {
             using (Service1Client wcf = new Service1Client())
             {
-                orderList = wcf.GetAllOrders().ToList();
-                customerList = wcf.GetAllCustomers().ToList();
-                carrierList = wcf.GetAllCarriers().ToList();
-                paymentList = wcf.GetAllPayments().ToList();
+                _carrierService = new CarrierService();
+                _customerService = new CustomerService();
+                _orderService = new OrderService();
+                //_paymentService = new PaymentService();
+
+                _carrierList = _carrierService.LoadCarriers();
+                _orderList = _orderService.LoadOrders();
+                _customerList = _customerService.LoadCustomers();
+                //paymentList = _paymentService.;
             }
         }
+
+        #endregion
+
         #region Properties
 
         //Orders
-        public List<vwOrder> Orders
+        public List<Order> Orders
         {
-            get { return orderList; }
+            get { return _orderList; }
         }
-        public vwOrder Order
+        public Order Order
         {
             get { return order; }
             set
             {
                 order = value;
-                OnPropertyChanged("Order");
+                OnPropertyChanged(nameof(Order));
             }
         }
 
         //Customers
-        public List<vwCustomer> Customers
+        public List<Customer> Customers
         {
-            get { return customerList; }
+            get { return _customerList; }
         }
-        private vwCustomer customer = new vwCustomer();
-        public vwCustomer Customer
+        private Customer customer = new Customer();
+        public Customer Customer
         {
             get { return customer; }
             set
             {
                 customer = value;
-                OnPropertyChanged("Customer");
+                OnPropertyChanged(nameof(Customer));
             }
         }
 
         //Carrier
-        public List<vwCarrier> Carriers
+        public List<Carrier> Carriers
         {
-            get { return carrierList; }
+            get { return _carrierList; }
         }
-        private vwCarrier carrier = new vwCarrier();
-        public vwCarrier Carrier
+        private Carrier carrier = new Carrier();
+        public Carrier Carrier
         {
             get { return carrier; }
             set
             {
                 carrier = value;
-                OnPropertyChanged("Carrier");
+                OnPropertyChanged(nameof(Carrier));
             }
         }
 
         //Payment
-        public List<vwPayment> Payments
+        public List<Payment> Payments
         {
-            get { return paymentList; }
+            get { return _paymentList; }
         }
-        private vwPayment payment = new vwPayment();
-        public vwPayment Payment
+        private Payment payment = new Payment();
+        public Payment Payment
         {
             get { return payment; }
             set
             {
                 payment = value;
-                OnPropertyChanged("Payment");
+                OnPropertyChanged(nameof(Payment));
             }
         }
         #endregion
@@ -109,96 +133,25 @@ namespace WpfAgroStoreApp.ViewModel
         {
             if (param.ToString().Equals("btn_Proceed_Order"))
             {
-                AddOrder();
+                _orderService.StoreOrder(Customer.CustomerID, Carrier.CarrierID, Payment.PaymentID);
             }
 
             if (param.ToString().Equals("btn_UpDateOrder"))
             {
-                EditOrder();
+                _orderService.EditOrder(Order);
             }
 
             else if (param.ToString().Equals("btn_DeleteOrder"))
             {
-                DeleteOrder();
+                _orderService.DeleteOrder(Order);
             }
         }
-
-        private void DeleteOrder()
-        {
-            try
-            {
-                using (Service1Client wcf = new Service1Client())
-                {
-                    int ordID = (int)order.OrderID;
-                    bool isOrderExist = wcf.IsOrderExist(ordID);
-
-                    if (isOrderExist)
-                    {
-                        MessageBoxResult msgRes = MessageBox.Show("Da li zelite da obrisete narudzbinu: " + order.OrderID.ToString(), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                        if (msgRes == MessageBoxResult.Yes)
-                        {
-                            wcf.DeleteOrder(ordID);
-                            MessageBox.Show("Obrisana je naruzbina: " + order.OrderID.ToString());
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Izaberite narudzbinu za brisanje.");
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Izaberite narudzbinu za brisanje.");
-            }
-        }
-
-        private void EditOrder()
-        {
-            try
-            {
-                using (Service1Client wcf = new Service1Client())
-                {
-                    MessageBoxResult msgRes = MessageBox.Show("Da li zelite da izmenite narudzbinu broj: " + order.OrderID.ToString(), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (msgRes == MessageBoxResult.Yes)
-                    {
-                        wcf.AddOrder(order);
-                        MessageBox.Show("Izmenjena je narudzbina: " + order.OrderID.ToString());
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error");
-            }
-        }
-
-        private void AddOrder()
-        {
-            try
-            {
-                using (Service1Client wcf = new Service1Client())
-                {
-                    order.CustomerID = Customer.CustomerID;
-                    order.CarrierID = Carrier.CarrierID;
-                    order.PaymentID = Payment.PaymentID;
-
-                    vwOrder newOrder = wcf.AddOrder(order);
-                    OrderDetails_View orderDetailsView = new OrderDetails_View(newOrder);
-                    orderDetailsView.ShowDialog();
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error");
-            }
-        }
-
+        
         private bool CanExecute(object param)
         {
             if (param.ToString().Equals("btn_Add_Order"))
             {
-                if (order.CustomerID == null)
+                if (Order == null)
                 {
                     return false;
                 }

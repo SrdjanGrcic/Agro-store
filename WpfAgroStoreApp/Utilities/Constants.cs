@@ -31,8 +31,23 @@ namespace WpfAgroStoreApp.Utilities
         public const string CustomerEdited = "Customer edited: ";
         public const string CustomerDeleted = "Customer deleted: ";
 
+        public const string EditOrder = "Do you want to edit selected order: ";
+        public const string DeleteOrder = "Do you want to delete selected order: ";
+
+        public const string OrderEdited = "Order edited: ";
+        public const string OrderDeleted = "Order deleted: ";
+
+        public const string EditPayment = "Do you want to edit selected payment: ";
+        public const string DeletePayment = "Do you want to delete selected payment: ";
+
+        public const string PaymentEdited = "Payment edited: ";
+        public const string PaymentDeleted = "Payment deleted: ";
+
         public const string ChooseCarrier = "Choose carrier.";
         public const string ChooseCategory = "Choose category.";
         public const string ChooseCustomer = "Choose customer.";
+        public const string ChooseOrder = "Choose order.";
+        public const string ChoosePayment = "Choose payment.";
+
     }
 }

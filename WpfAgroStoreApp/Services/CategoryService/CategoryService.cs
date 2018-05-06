@@ -11,6 +11,8 @@ namespace WpfAgroStoreApp.Services.CategoryService
 {
     public class CategoryService : ICategoryService
     {
+        #region Public Methods
+
         public bool DeleteCategory(Category category)
         {
             try
@@ -89,7 +91,6 @@ namespace WpfAgroStoreApp.Services.CategoryService
                 using (Service1Client wcf = new Service1Client())
                 {
                     wcf.AddCategory(TransformToServiceModel(category));
-                    //MessageBox.Show("Dodata je kategorija.");
 
                     return category;
                 }
@@ -100,6 +101,8 @@ namespace WpfAgroStoreApp.Services.CategoryService
             }
             return null;
         }
+
+        #endregion
 
         #region Private Methods
 

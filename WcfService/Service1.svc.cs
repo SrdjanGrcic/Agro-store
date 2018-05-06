@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 
 namespace WcfService
 {
@@ -62,15 +58,16 @@ namespace WcfService
                 {
                     if (supplier.SupplierID == 0)
                     {
-                        tblSupplier newSupplier = new tblSupplier();
-                        newSupplier.SupplierID = supplier.SupplierID;
-                        newSupplier.SupplierName = supplier.SupplierName;
-                        newSupplier.Address = supplier.Address;
-                        newSupplier.City = supplier.City;
-                        newSupplier.Phone = supplier.Phone;
-                        newSupplier.Email = supplier.Email;
-                        newSupplier.Notes = supplier.Notes;
-
+                        tblSupplier newSupplier = new tblSupplier()
+                        {
+                            SupplierID = supplier.SupplierID,
+                            SupplierName = supplier.SupplierName,
+                            Address = supplier.Address,
+                            City = supplier.City,
+                            Phone = supplier.Phone,
+                            Email = supplier.Email,
+                            Notes = supplier.Notes
+                        };
                         context.tblSupplier.Add(newSupplier);
 
                         context.SaveChanges();
@@ -177,13 +174,14 @@ namespace WcfService
                 {
                     if (customer.CustomerID == 0)
                     {
-                        tblCustomer newCustomer = new tblCustomer();
-                        newCustomer.CustomerID = customer.CustomerID;
-                        newCustomer.CustomerName = customer.CustomerName;
-                        newCustomer.Address = customer.Address;
-                        newCustomer.City = customer.City;
-                        newCustomer.Phone = customer.Phone;
-
+                        tblCustomer newCustomer = new tblCustomer()
+                        {
+                            CustomerID = customer.CustomerID,
+                            CustomerName = customer.CustomerName,
+                            Address = customer.Address,
+                            City = customer.City,
+                            Phone = customer.Phone
+                        };
                         context.tblCustomer.Add(newCustomer);
 
                         context.SaveChanges();
@@ -288,15 +286,15 @@ namespace WcfService
                 {
                     if (product.ProductID == 0)
                     {
-                        tblProduct newProduct = new tblProduct();
-                        newProduct.ProductID = product.ProductID;
-                        newProduct.ProductName = product.ProductName;
-                        newProduct.Price = product.Price;
-                        newProduct.ProductDesc = product.ProductDesc;
-                        newProduct.SupplierID = product.SupplierID;
-                        newProduct.CategoryID = product.CategoryID;
-
-
+                        tblProduct newProduct = new tblProduct()
+                        {
+                            ProductID = product.ProductID,
+                            ProductName = product.ProductName,
+                            Price = product.Price,
+                            ProductDesc = product.ProductDesc,
+                            SupplierID = product.SupplierID,
+                            CategoryID = product.CategoryID
+                        };
                         context.tblProduct.Add(newProduct);
 
                         context.SaveChanges();
@@ -402,11 +400,12 @@ namespace WcfService
                 {
                     if (category.CategoryID == 0)
                     {
-                        tblCategory newCategory = new tblCategory();
-                        newCategory.CategoryID = category.CategoryID;
-                        newCategory.CategoryName = category.CategoryName;
-                        newCategory.CategoryDesc = category.CategoryDesc;
-
+                        tblCategory newCategory = new tblCategory()
+                        {
+                            CategoryID = category.CategoryID,
+                            CategoryName = category.CategoryName,
+                            CategoryDesc = category.CategoryDesc
+                        };
                         context.tblCategory.Add(newCategory);
 
                         context.SaveChanges();
@@ -509,10 +508,11 @@ namespace WcfService
                 {
                     if (payment.PaymentID == 0)
                     {
-                        tblPayment newPayment = new tblPayment();
-                        newPayment.PaymentID = payment.PaymentID;
-                        newPayment.PaymentType = payment.PaymentType;
-
+                        tblPayment newPayment = new tblPayment()
+                        {
+                            PaymentID = payment.PaymentID,
+                            PaymentType = payment.PaymentType
+                        };
                         context.tblPayment.Add(newPayment);
 
                         context.SaveChanges();
@@ -615,15 +615,16 @@ namespace WcfService
                 {
                     if (carrier.CarrierID == 0)
                     {
-                        tblCarrier newCarrier = new tblCarrier();
-                        newCarrier.CarrierID = carrier.CarrierID;
-                        newCarrier.CarrierName = carrier.CarrierName;
-                        newCarrier.Address = carrier.Address;
-                        newCarrier.City = carrier.City;
-                        newCarrier.Phone = carrier.Phone;
-                        newCarrier.Email = carrier.Email;
-                        newCarrier.Notes = carrier.Notes;
-
+                        tblCarrier newCarrier = new tblCarrier()
+                        {
+                            CarrierID = carrier.CarrierID,
+                            CarrierName = carrier.CarrierName,
+                            Address = carrier.Address,
+                            City = carrier.City,
+                            Phone = carrier.Phone,
+                            Email = carrier.Email,
+                            Notes = carrier.Notes
+                        };
                         context.tblCarrier.Add(newCarrier);
 
                         context.SaveChanges();
@@ -731,16 +732,17 @@ namespace WcfService
                 {
                     if (order.OrderID == 0)
                     {
-                        tblOrder newOrder = new tblOrder();
-                        //newOrder.OrderID = order.OrderID;     // Don't need this line, OrderID is 0(will get its value later)
-                        newOrder.CustomerID = order.CustomerID;
-                        newOrder.CarrierID = order.CarrierID;
-                        newOrder.PaymentID = order.PaymentID;
-                        newOrder.OrderDate = (DateTime)order.OrderDate;
-                        newOrder.ShipDate = (DateTime)order.ShipDate;
-                        newOrder.PaidDate = (DateTime)order.PaidDate;
-                        newOrder.Paid = order.Paid;
-
+                        tblOrder newOrder = new tblOrder()
+                        {
+                            //newOrder.OrderID = order.OrderID;     // Don't need this line, OrderID is 0(will get its value later)
+                            CustomerID = order.CustomerID,
+                            CarrierID = order.CarrierID,
+                            PaymentID = order.PaymentID,
+                            OrderDate = (DateTime)order.OrderDate,
+                            ShipDate = (DateTime)order.ShipDate,
+                            PaidDate = (DateTime)order.PaidDate,
+                            Paid = order.Paid
+                        };
                         context.tblOrder.Add(newOrder);
                         context.SaveChanges();
                         order.OrderID = newOrder.OrderID;
@@ -848,14 +850,15 @@ namespace WcfService
                 {
                     if (orderDetails.OrderDetailsID == 0)
                     {
-                        vwOrderDetails newOrderDetails = new vwOrderDetails();
-                        newOrderDetails.OrderDetailsID = orderDetails.OrderDetailsID;
-                        newOrderDetails.OrderID = orderDetails.OrderID;
-                        newOrderDetails.ProductID = orderDetails.ProductID;
-                        newOrderDetails.Quantity = orderDetails.Quantity;
-                        newOrderDetails.TotalAmount = orderDetails.TotalAmount;
-                        newOrderDetails.Discount = orderDetails.Discount;
-
+                        vwOrderDetails newOrderDetails = new vwOrderDetails()
+                        {
+                            OrderDetailsID = orderDetails.OrderDetailsID,
+                            OrderID = orderDetails.OrderID,
+                            ProductID = orderDetails.ProductID,
+                            Quantity = orderDetails.Quantity,
+                            TotalAmount = orderDetails.TotalAmount,
+                            Discount = orderDetails.Discount
+                        };
                         context.vwOrderDetails.Add(newOrderDetails);
 
                         context.SaveChanges();

@@ -13,6 +13,8 @@ namespace WpfAgroStoreApp.Services.CustomerService
 {
     public class CustomerService : ICustomerService
     {
+        #region Public Methods
+
         public bool DeleteCustomer(Customer customer)
         {
             try
@@ -81,7 +83,6 @@ namespace WpfAgroStoreApp.Services.CustomerService
                 using (Service1Client wcf = new Service1Client())
                 {
                     wcf.AddCustomer(TransformToServiceModel(customer));
-                    //MessageBox.Show("Dodat je kupac: {0}." + customer.CustomerName);
 
                     return customer;
                 }
@@ -93,6 +94,8 @@ namespace WpfAgroStoreApp.Services.CustomerService
                 return customer;
             }
         }
+
+        #endregion
 
         #region Private Methods
 

@@ -11,6 +11,8 @@ namespace WpfAgroStoreApp.Services.CarrierService
 {
     public class CarrierService : ICarrierService
     {
+        #region Public Methods
+
         public bool EditCarrier(Carrier carrier)
         {
             try
@@ -102,6 +104,10 @@ namespace WpfAgroStoreApp.Services.CarrierService
             return false;
         }
 
+        #endregion
+
+        #region Private methods
+
         private vwCarrier TransformToServiceModel(Carrier carrier)
         {
             return new vwCarrier()
@@ -122,5 +128,7 @@ namespace WpfAgroStoreApp.Services.CarrierService
             }
             return _carrierList;
         }
+
+        #endregion
     }
 }

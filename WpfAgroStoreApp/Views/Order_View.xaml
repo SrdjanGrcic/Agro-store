@@ -14,17 +14,27 @@
         <Label Content="Paid" HorizontalAlignment="Left" Margin="56,370,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.368,0.146"/>
         <CheckBox Content="" HorizontalAlignment="Left" Margin="106,379,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.6,-0.267" IsChecked="{Binding Order.Paid}"/>
 
-        <Button Content="Proceed" Name="btn_Proceed_Order" HorizontalAlignment="Left" Margin="680,288,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Show, UpdateSourceTrigger=PropertyChanged}" CommandParameter="btn_Proceed_Order"/>
-        <Button Content="Delete" Name="btn_DeleteOrder" HorizontalAlignment="Left" Margin="680,339,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Show, UpdateSourceTrigger=PropertyChanged}" CommandParameter="btn_DeleteOrder"/>
-        <Button Content="Update" Name="btn_UpDateOrder" HorizontalAlignment="Left" Margin="680,314,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Show, UpdateSourceTrigger=PropertyChanged}" CommandParameter="btn_UpDateOrder"/>
+        <Button Content="Proceed" Name="btn_Proceed_Order" HorizontalAlignment="Left" Margin="680,288,0,0" VerticalAlignment="Top" Width="75" 
+                Command="{Binding Show, UpdateSourceTrigger=PropertyChanged}" CommandParameter="btn_Proceed_Order"/>
+        <Button Content="Delete" Name="btn_DeleteOrder" HorizontalAlignment="Left" Margin="680,339,0,0" VerticalAlignment="Top" Width="75" 
+                Command="{Binding Show, UpdateSourceTrigger=PropertyChanged}" CommandParameter="btn_DeleteOrder"/>
+        <Button Content="Update" Name="btn_UpDateOrder" HorizontalAlignment="Left" Margin="680,314,0,0" VerticalAlignment="Top" Width="75" 
+                Command="{Binding Show, UpdateSourceTrigger=PropertyChanged}" CommandParameter="btn_UpDateOrder"/>
+        
         <Label Content="Customer" HorizontalAlignment="Left" Margin="32,207,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="106,207,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" Text="Select customer" ItemsSource="{Binding Customers}" SelectedItem="{Binding Customer}" DisplayMemberPath="CustomerName"/>
+        <ComboBox HorizontalAlignment="Left" Margin="106,207,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" Text="Select customer" 
+                  ItemsSource="{Binding Customers}" SelectedItem="{Binding Customer}" DisplayMemberPath="CustomerName"/>
+        
         <Label Content="Carrier" HorizontalAlignment="Left" Margin="43,317,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.231"/>
-        <ComboBox HorizontalAlignment="Left" Margin="106,321,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" Text="Select carrier" ItemsSource="{Binding Carriers}" SelectedItem="{Binding Carrier}" DisplayMemberPath="CarrierName"/>
+        <ComboBox HorizontalAlignment="Left" Margin="106,321,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" Text="Select carrier" 
+                  ItemsSource="{Binding Carriers}" SelectedItem="{Binding Carrier}" DisplayMemberPath="CarrierName"/>
+        
         <Label Content="Payment" HorizontalAlignment="Left" Margin="37,344,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="106,348,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" Text="Select payment" ItemsSource="{Binding Payments}" SelectedItem="{Binding Payment}" DisplayMemberPath="PaymentType"/>
-        <Button Content="Details" Name="btn_DetailsOrder" HorizontalAlignment="Left" Margin="680,364,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Show, UpdateSourceTrigger=PropertyChanged}" CommandParameter="btn_DetailsOrder"/>
+        <ComboBox HorizontalAlignment="Left" Margin="106,348,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" Text="Select payment" 
+                  ItemsSource="{Binding Payments}" SelectedItem="{Binding Payment}" DisplayMemberPath="PaymentType"/>
 
+        <Button Content="Details" Name="btn_DetailsOrder" HorizontalAlignment="Left" Margin="680,364,0,0" VerticalAlignment="Top" Width="75" 
+                Command="{Binding Show, UpdateSourceTrigger=PropertyChanged}" CommandParameter="btn_DetailsOrder"/>
 
     </Grid>
 </Window>
