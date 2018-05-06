@@ -11,7 +11,13 @@ namespace WpfAgroStoreApp.ViewModel
         private List<Payment> _paymentList = new List<Payment>();
         private Payment _payment = new Payment();
 
+
         private PaymentService _paymentService;
+
+
+
+
+
 
         public Payment_ViewModel()
         {
