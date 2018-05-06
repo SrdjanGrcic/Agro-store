@@ -17,7 +17,8 @@ namespace WpfAgroStoreApp.ViewModel
         private List<vwPayment> paymentList = new List<vwPayment>();
 
         private vwPayment payment = new vwPayment();
-
+//Just some text
+var t = 0;
         public Payment_ViewModel()
         {
             using (Service1Client wcf = new Service1Client())
